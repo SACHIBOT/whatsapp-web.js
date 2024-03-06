@@ -1,5 +1,5 @@
 const { Client, Location, Poll, List, Buttons, LocalAuth } = require('./index');
-
+const qrcode_terminal = require('qrcode-terminal');
 const client = new Client({
     authStrategy: new LocalAuth(),
     // proxyAuthentication: { username: 'username', password: 'password' },
@@ -18,6 +18,7 @@ client.on('loading_screen', (percent, message) => {
 client.on('qr', (qr) => {
     // NOTE: This event will not be fired if a session is specified.
     console.log('QR RECEIVED', qr);
+    qrcode_terminal.generate(qr, {small: true});
 });
 
 client.on('authenticated', () => {
